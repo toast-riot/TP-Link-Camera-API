@@ -31,6 +31,7 @@ You also need a `salt` for RSA encryption. In my case, it was just hardcoded int
 <sup>impl: `TPLinkIPCClient._fetch_encryption_info`</sup>
 
 1. Send a POST request to `base_url`
+
    Body:
    ```python
    {
@@ -42,18 +43,18 @@ You also need a `salt` for RSA encryption. In my case, it was just hardcoded int
    ```
    
    Response fields:
-   | Field          | Type        | Description                                                                                                           |
-   |----------------|-------------|-----------------------------------------------------------------------------------------------------------------------|
-   | `code`         | `int`       | An error code                                                                                                         |
-   | `encrypt_type` | `list[str]` | The device's supported encryption types                                                                               |
-   | `key`          | `str`       | RSA public key for encrypting the password (if RSA is used)                                                          |
-   | `nonce`        | `str`       | A nonce value                                                                                                         |
-   | `passwdType`   | `str`       | Always "md5" in my tests; not used by the web interface                                                              |
+   | Field          | Type        | Description                                             |
+   |----------------|-------------|---------------------------------------------------------|
+   | `code`         | `int`       | An error code                                           |
+   | `encrypt_type` | `list[str]` | The device's supported encryption types                 |
+   | `key`          | `str`       | RSA public key for encrypting the password              |
+   | `nonce`        | `str`       | A nonce value                                           |
+   | `passwdType`   | `str`       | Always "md5" in my tests; not used by the web interface |
 
    > **Note:** This endpoint returns status code 401 and a non-zero `code` despite allowing access.
 
-2. Un-URL-quote `key`, then convert to PEM format &#8594; `pubkey_pem`
-3. Determine which encryption type to use from `encrypt_type` &#8594; `encrypt_type`
+3. Un-URL-quote `key`, then convert to PEM format &#8594; `pubkey_pem`
+4. Determine which encryption type to use from `encrypt_type` &#8594; `encrypt_type`
 
 ---
 
@@ -74,6 +75,7 @@ You also need a `salt` for RSA encryption. In my case, it was just hardcoded int
 <sup>impl: `TPLinkIPCClient.login`</sup>
 
 1. Send a POST request to `base_url`
+   
    Body:
    ```python
    {
