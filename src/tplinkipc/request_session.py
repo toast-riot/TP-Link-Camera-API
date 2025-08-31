@@ -16,7 +16,6 @@ class _UnsafeTLSAdapter(HTTPAdapter):
         ctx.check_hostname = False
         # ctx.set_ciphers('ALL:@SECLEVEL=0') # if it isn't working, try this
         ctx.set_ciphers('AES256-GCM-SHA384')
-        print(ctx.get_ciphers())
         self.poolmanager = PoolManager(
             num_pools=connections,
             maxsize=maxsize,
